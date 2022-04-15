@@ -1,0 +1,30 @@
+{
+  "name": "auth-app-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamvelichko/auth-app-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williamvelichko/auth-app-backend/issues"
+  },
+  "homepage": "https://github.com/williamvelichko/auth-app-backend#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-jwt": "^6.1.1",
+    "gitignore": "^0.7.0",
+    "jwks-rsa": "^2.0.5",
+    "nodemon": "^2.0.15"
+  }
+}
