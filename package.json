@@ -25,6 +25,7 @@
     "express-jwt": "^6.1.1",
     "gitignore": "^0.7.0",
     "jwks-rsa": "^2.0.5",
+    "knex": "^1.0.7",
     "nodemon": "^2.0.15"
   }
 }

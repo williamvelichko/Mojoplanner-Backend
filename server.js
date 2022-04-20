@@ -9,7 +9,7 @@ app.use(cors());
 app.use(verifyJwt);
 
 app.get("/", (req, res) => {
-  // res.send("hello from index route");
+  res.send("hello from index route");
 });
 
 app.get("/protected", protectedApi, async (req, res) => {
