@@ -1,11 +1,17 @@
-const path = require("path");
-var dotenv = require("dotenv");
-dotenv.config({ path: "../.env" });
+//const path = require("path");
+//var dotenv = require("dotenv");
+require("dotenv").config();
+const pg = require("pg");
+//dotenv.config({ path: "../env" });
+
+// if (process.env.DATABASE_URL) {
+//   pg.defaults.ssl = { rejectUnauthorized: false };
+// }
 
 const sharedConfig = {
   client: "pg",
-  migrations: { directory: path.join(__dirname, "../data/migrations") },
-  seeds: { directory: path.join(__dirname, "../data/seeds") },
+  migrations: { directory: "./migrations" },
+  seeds: { directory: "./seeds" },
 };
 
 module.exports = {

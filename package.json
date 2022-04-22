@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "knex": "npx knex --knexfile config/knexfile.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "migrate": "npx knex --knexfile config/knexfile.js migrate:latest",
+    "rollback": "npx knex --knexfile config/knexfile.js migrate:rollback",
+    "seed": "npx knex --knexfile config/knexfile.js seed:run"
   },
   "repository": {
     "type": "git",
@@ -26,6 +30,7 @@
     "gitignore": "^0.7.0",
     "jwks-rsa": "^2.0.5",
     "knex": "^1.0.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3"
   }
 }
