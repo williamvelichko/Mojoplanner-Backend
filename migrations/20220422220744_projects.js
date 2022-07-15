@@ -4,9 +4,9 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("projects", function (table) {
-    table.string("project_id").unique().notNullable().primary();
-    table.string("project_name");
-    table.string("project_leader").unique();
+    table.increments("project_id").primary();
+    table.string("project_name", 128).notNullable();
+    table.string("project_leader", 128).unique().notNullable();
   });
 };
 

@@ -1,12 +1,19 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const { protectedApi, verifyJwt } = require("./middleWare/ProtectedMiddleware");
 require("dotenv").config();
 
+const notesRouter = require("./Notes/notes-router");
+
 const app = express();
+app.use(express.json());
+app.use(helmet());
 app.use(cors());
 
 app.use(verifyJwt);
+
+app.use("/api/notes", notesRouter);
 
 app.get("/", (req, res) => {
   res.send("hello from index route");
