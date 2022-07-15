@@ -3,38 +3,35 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { protectedApi, verifyJwt } = require("./middleWare/ProtectedMiddleware");
 require("dotenv").config();
+const router = require("./api/router");
 
-const notesRouter = require("./Notes/notes-router");
+const server = express();
+server.use(express.json());
+server.use(helmet());
+server.use(cors());
 
-const app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(cors());
+// server.use(verifyJwt);
 
-app.use(verifyJwt);
+server.use("/api/projects", router);
 
-app.use("/api/notes", notesRouter);
+// server.get("/", (req, res) => {
+//   res.send("hello from index route");
+// });
 
-app.get("/", (req, res) => {
-  res.send("hello from index route");
-});
+// server.get("/protected", protectedApi, async (req, res) => {
+//   res.send(userinfo);
+// });
 
-app.get("/protected", protectedApi, async (req, res) => {
-  res.send(userinfo);
-});
+// server.use((req, res, next) => {
+//   const error = new Error("Not Found");
+//   error.status = 404;
+//   next(error);
+// });
 
-app.use((req, res, next) => {
-  const error = new Error("Not Found");
-  error.status = 404;
-  next(error);
-});
+// server.use((error, req, res, next) => {
+//   const status = error.status || 500;
+//   const message = error.message || "Internal server error";
+//   res.status().send();
+// });
 
-app.use((error, req, res, next) => {
-  const status = error.status || 500;
-  const message = error.message || "Internal server error";
-  res.status().send();
-});
-
-const port = process.env.PORT;
-
-app.listen(port, () => console.log(`listening on port ${port}`));
+module.exports = server;
