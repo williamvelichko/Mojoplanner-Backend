@@ -6,7 +6,7 @@ function getProjects() {
 
 function getCompbined() {
   return db("projects as p")
-    .leftJoin("tasks as t", "t.task_id", "p.project_id")
+    .leftJoin("tasks as t", "t.project_id", "p.project_id")
     .select(
       "p.project_name",
       "p.project_leader",
