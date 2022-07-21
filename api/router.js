@@ -35,8 +35,15 @@ router.get("/combined", (req, res, next) => {
     });
 });
 
-router.get("/name", (req, res, next) => {
-  console.log("william");
+router.get("/organized", (req, res, next) => {
+  model
+    .organizedProject()
+    .then((pr) => {
+      res.json(pr);
+    })
+    .catch((err) => {
+      res.json(err.message);
+    });
 });
 
 module.exports = router;
