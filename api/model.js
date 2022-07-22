@@ -55,7 +55,12 @@ async function organizedProject() {
 
   return arr;
 }
-
+async function updateProject(project_id, { project_leader, project_name }) {}
+async function updateTask(task_id, { task_name, task_information }) {}
+async function createProject() {}
+async function createTask() {}
+async function deleteProject() {}
+async function deleteTask() {}
 module.exports = {
   getProjects,
   getCompbined,
