@@ -55,7 +55,21 @@ async function organizedProject() {
 
   return arr;
 }
-async function updateProject(project_id, { project_leader, project_name }) {}
+async function updateProject(project_id, { project_leader, project_name }) {
+  await db("projects")
+    .where({ project_id: project_id })
+    .update({ project_leader, project_name });
+  return {
+    project_name,
+    project_leader,
+    project_id,
+  };
+}
+
+async function projectById(project_id) {
+  return db("projects").where({ project_id: project_id });
+}
+
 async function updateTask(task_id, { task_name, task_information }) {}
 async function createProject() {}
 async function createTask() {}
@@ -66,4 +80,6 @@ module.exports = {
   getCompbined,
   getTasks,
   organizedProject,
+  updateProject,
+  projectById,
 };
