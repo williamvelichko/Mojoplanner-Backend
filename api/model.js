@@ -32,21 +32,28 @@ async function organizedProject() {
   let pr = await getProjects();
 
   let tasks = await getTasks();
+  let arr = [];
   const prData = pr.map((dt) => {
-    return dt.project_name;
+    let project_name = dt.project_name;
+    let project_leader = dt.project_leader;
+    let project_id = dt.project_id;
+    let project_tasks = [];
+    let prTasks = tasks.map((ts) => {
+      let task_name = ts.task_name;
+      let task_information = ts.task_information;
+      if (ts.project_id === dt.project_id) {
+        project_tasks.push({ task_name, task_information });
+      }
+    });
+    const push = arr.push({
+      project_leader,
+      project_name,
+      project_id,
+      project_tasks,
+    });
   });
 
-  let projects = [
-    {
-      project_name: prData.project_name,
-      project_leader: data.project_leader,
-      project_id: data.project_id,
-      project_tasks: [
-        { task_name: data.task_name, task_information: data.task_information },
-      ],
-    },
-  ];
-  return projects;
+  return arr;
 }
 
 module.exports = {
