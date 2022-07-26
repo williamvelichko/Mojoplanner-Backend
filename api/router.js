@@ -62,9 +62,59 @@ router.put("/updateProject/:project_id", async (req, res, next) => {
     const result = await model.updateProject(req.params.project_id, req.body);
     const updated = await model.projectById(req.params.project_id);
     res.json(updated);
-  } catch {
+  } catch (err) {
     next(err);
   }
+});
+
+router.get("/task/:task_id", async (req, res, next) => {
+  model
+    .getTaskById(req.params.task_id)
+    .then((pr) => {
+      res.json(pr);
+    })
+    .catch((err) => {
+      res.json(err.message);
+    });
+});
+
+router.put("/task/:task_id", async (req, res, next) => {
+  try {
+    const result = await model.updateTask(req.params.task_id, req.body);
+    const updated = await model.getTaskById(req.params.task_id);
+    res.json(updated);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/newProject", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const result = model.createProject(req.body);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:project_id", async (req, res, next) => {
+  model
+    .deleteProject(req.params.project_id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err.message);
+    });
+});
+
+router.use((err, req, res, next) => {
+  // eslint-disable-line
+  res.status(err.status || 500).json({
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 module.exports = router;
