@@ -67,7 +67,10 @@ async function updateProject(project_id, { project_leader, project_name }) {
 }
 
 async function projectById(project_id) {
-  return db("projects").where({ project_id: project_id });
+  let data = await organizedProject();
+  let id = project_id;
+  let loop = data.filter((pr) => pr.project_id == id);
+  return loop;
 }
 
 async function updateTask(task_id, { task_name, task_information }) {
