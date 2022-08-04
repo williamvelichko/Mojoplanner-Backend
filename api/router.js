@@ -109,6 +109,21 @@ router.delete("/:project_id", async (req, res, next) => {
     });
 });
 
+router.post("/newTask/:project_id", async (req, res, next) => {
+  //   try {
+  //     const result = model.createTask(req.params.project_id, req.body);
+  //     res.json(result);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  model
+    .createTask(req.params.project_id, req.body)
+    .then((res) => {
+      res.status(201).json(res);
+    })
+    .catch(next);
+});
+
 router.use((err, req, res, next) => {
   // eslint-disable-line
   res.status(err.status || 500).json({

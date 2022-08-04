@@ -80,17 +80,22 @@ async function getTaskById(task_id) {
   return db("tasks").where({ task_id: task_id });
 }
 async function createProject(body) {
-  let project_id = await db("projects").insert({
-    project_name: body.project_name,
-    project_leader: body.project_leader,
-  });
+  const [project_id] = await db("projects").insert(body);
   console.log(project_id);
 }
-async function createTask() {}
+
 async function deleteProject(project_id) {
   let result = await projectById(project_id);
   await db("projects").where({ project_id: project_id }).del();
   return result;
+}
+async function createTask(project_id, body) {
+  const [task_id] = await db("tasks").insert({
+    project_id: project_id,
+    task_name: body.task_name,
+    task_information: body.task_information,
+  });
+  return getTaskById(task_id);
 }
 async function deleteTask() {}
 module.exports = {
@@ -104,4 +109,5 @@ module.exports = {
   getTaskById,
   createProject,
   deleteProject,
+  createTask,
 };
