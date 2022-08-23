@@ -56,7 +56,7 @@ async function organizedProject() {
   return arr;
 }
 async function updateProject(project_id, { project_leader, project_name }) {
-  await db("projects")
+  const result = await db("projects")
     .where({ project_id: project_id })
     .update({ project_leader, project_name });
   return {
@@ -109,7 +109,11 @@ async function createTask(project_id, body) {
 async function getTaskByProjectId(project_id) {
   return db("tasks").where({ project_id: project_id });
 }
-async function deleteTask() {}
+async function deleteTask(task_id) {
+  let result = await getTaskById(task_id);
+  let res = await db("tasks").where({ task_id: task_id }).del();
+  return result;
+}
 module.exports = {
   getProjects,
   getCompbined,
@@ -122,4 +126,5 @@ module.exports = {
   createProject,
   deleteProject,
   createTask,
+  deleteTask,
 };
