@@ -91,7 +91,7 @@ router.put("/task/:task_id", async (req, res, next) => {
 router.post("/newProject", async (req, res, next) => {
   try {
     console.log(req.body);
-    const result = model.createProject(req.body);
+    const result = await model.createProject(req.body);
     res.json(result);
   } catch (err) {
     next(err);
@@ -110,18 +110,18 @@ router.delete("/:project_id", async (req, res, next) => {
 });
 
 router.post("/newTask/:project_id", async (req, res, next) => {
-  //   try {
-  //     const result = model.createTask(req.params.project_id, req.body);
-  //     res.json(result);
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  model
-    .createTask(req.params.project_id, req.body)
-    .then((res) => {
-      res.status(201).json(res);
-    })
-    .catch(next);
+  try {
+    const result = await model.createTask(req.params.project_id, req.body);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+  //   model
+  //     .createTask(req.params.project_id, req.body)
+  //     .then((res) => {
+  //       res.json(res);
+  //     })
+  //     .catch(next);
 });
 
 router.use((err, req, res, next) => {
