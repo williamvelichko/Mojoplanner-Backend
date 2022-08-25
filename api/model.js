@@ -26,7 +26,8 @@ async function organizedProject() {
       "p.project_leader",
       "p.project_id",
       "t.task_name",
-      "t.task_information"
+      "t.task_information",
+      "t.task_id"
     );
 
   let pr = await getProjects();
@@ -41,8 +42,9 @@ async function organizedProject() {
     let prTasks = tasks.map((ts) => {
       let task_name = ts.task_name;
       let task_information = ts.task_information;
+      let task_id = ts.task_id;
       if (ts.project_id === dt.project_id) {
-        project_tasks.push({ task_name, task_information });
+        project_tasks.push({ task_name, task_information, task_id });
       }
     });
     const push = arr.push({
