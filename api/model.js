@@ -56,7 +56,7 @@ async function organizedProject() {
   return arr;
 }
 async function updateProject(project_id, { project_leader, project_name }) {
-  const result = await db("projects")
+  await db("projects")
     .where({ project_id: project_id })
     .update({ project_leader, project_name });
   return {
