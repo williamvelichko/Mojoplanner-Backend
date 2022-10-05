@@ -14,9 +14,6 @@ async function add(user) {
   const users = await find();
   const lastUser = await users[users.length - 1];
   return lastUser;
-  //   /console.log(id);
-  //return findBy(result);
-  //console.log(result);
 }
 
 module.exports = {

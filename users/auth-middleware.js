@@ -24,7 +24,7 @@ function validateUser(req, res, next) {
   }
 }
 
-function usernameIsUnique(req, res, next) {
+function emailIsUnique(req, res, next) {
   console.log(req.user);
   if (Users.findBy({ email: req.user.email }).first() != null) {
     // next({
@@ -37,7 +37,19 @@ function usernameIsUnique(req, res, next) {
   }
 }
 
+async function emailExists(req, res, next) {
+  const user = await Users.findBy({ email: req.user.email }).first();
+
+  if (user == null) {
+    res.status(400).json(`user with email ${req.user.email} does not exist`);
+  } else {
+    req.user = user;
+    next();
+  }
+}
+
 module.exports = {
   validateUser,
-  usernameIsUnique,
+  emailIsUnique,
+  emailExists,
 };
