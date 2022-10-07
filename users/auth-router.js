@@ -34,7 +34,10 @@ router.post("/login", validateUser, emailExists, async (req, res, next) => {
   try {
     if (bcrypt.compareSync(password, req.user.password) === true) {
       // req.session.user = req.user;
-      res.json(`welcome back ${req.user.email}!`);
+      const token = generateToken(req.user);
+      res
+        .status(200)
+        .json({ message: `welcome back ${req.user.email}!`, token });
     } else {
       //next({ status: 401, message: "invalid credentials" });
       res.status(401).json("invalid credentials");
@@ -43,5 +46,13 @@ router.post("/login", validateUser, emailExists, async (req, res, next) => {
     next(err);
   }
 });
+
+function generateToken(user) {
+  const payload = {
+    subject: user.id,
+    email: user.email,
+  };
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+}
 
 module.exports = router;
