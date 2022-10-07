@@ -31,6 +31,7 @@
     "gitignore": "^0.7.0",
     "helmet": "^5.0.2",
     "httpie": "^1.1.2",
+    "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.5",
     "knex": "^1.0.7",
     "nodemon": "^2.0.15",

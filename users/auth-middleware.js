@@ -25,7 +25,8 @@ function validateUser(req, res, next) {
 }
 
 function emailIsUnique(req, res, next) {
-  console.log(req.user);
+  console.log(req.body);
+  console.log(Users.findBy({ email: req.body.email }).first() == null);
   if (Users.findBy({ email: req.user.email }).first() != null) {
     // next({
     //   status: 400,
