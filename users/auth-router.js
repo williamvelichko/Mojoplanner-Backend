@@ -14,7 +14,7 @@ const {
 router.post(
   "/register",
   validateUser,
-  //emailIsUnique,
+  emailIsUnique,
   async (req, res, next) => {
     try {
       const user = req.body;

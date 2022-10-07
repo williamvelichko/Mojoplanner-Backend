@@ -24,16 +24,13 @@ function validateUser(req, res, next) {
   }
 }
 
-function emailIsUnique(req, res, next) {
-  console.log(req.body);
-  console.log(Users.findBy({ email: req.body.email }).first() == null);
-  if (Users.findBy({ email: req.user.email }).first() != null) {
-    // next({
-    //   status: 400,
-    //   message: `email ${req.user.email} already exists`,
-    // });
-    res.status(400).json(`email ${req.user.email} already exists`);
+async function emailIsUnique(req, res, next) {
+  const user = await Users.findBy({ email: req.user.email }).first();
+
+  if (user != null) {
+    res.status(400).json(`user with email ${req.user.email} already exist`);
   } else {
+    req.user = user;
     next();
   }
 }
