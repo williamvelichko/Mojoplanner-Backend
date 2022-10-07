@@ -7,6 +7,14 @@ exports.up = function (knex) {
     table.increments("project_id").primary();
     table.string("project_name", 128).notNullable();
     table.string("project_leader", 128).notNullable();
+    table
+      .integer("user_id")
+      .unsigned()
+      .notNullable()
+      .references("user_id")
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
   });
 };
 

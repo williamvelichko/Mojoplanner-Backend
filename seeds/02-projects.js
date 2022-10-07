@@ -6,13 +6,7 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("projects").del();
   await knex("projects").insert([
-    {
-      project_name: "CrossCountry",
-      project_leader: "William velichko",
-    },
-    {
-      project_name: "OceanCove",
-      project_leader: "Mathey Yozhey",
-    },
+    { project_name: "oceanCove", project_leader: "william", user_id: 1 },
+    { project_name: "roadTrip", project_leader: "william", user_id: 1 },
   ]);
 };

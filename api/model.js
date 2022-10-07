@@ -116,6 +116,7 @@ async function deleteTask(task_id) {
   let res = await db("tasks").where({ task_id: task_id }).del();
   return result;
 }
+
 module.exports = {
   getProjects,
   getCompbined,
