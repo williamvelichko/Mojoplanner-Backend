@@ -117,6 +117,13 @@ async function deleteTask(task_id) {
   return result;
 }
 
+async function projectByUser() {
+  let data = db("projects as p")
+    .leftJoin("users as u", "u.user_id", "p.project_id")
+    .select("p.project_name", "p.project_leader", "u.user_id", "u.email");
+  console.log(data);
+}
+
 module.exports = {
   getProjects,
   getCompbined,
@@ -130,4 +137,5 @@ module.exports = {
   deleteProject,
   createTask,
   deleteTask,
+  projectByUser,
 };

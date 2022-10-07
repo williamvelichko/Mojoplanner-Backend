@@ -3,6 +3,17 @@ const model = require("./model");
 
 const router = express.Router();
 
+router.get("/projects", (req, res, next) => {
+  model
+    .projectByUser()
+    .then((pr) => {
+      res.json(pr);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get("/", (req, res, next) => {
   model
     .getProjects()
@@ -117,15 +128,6 @@ router.delete("/deleteTask/:task_id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-
-  // model
-  //   .deleteTask(req.params.task_id)
-  //   .then((res) => {
-  //     res.json(res);
-  //   })
-  //   .catch((err) => {
-  //     res.json(err.message);
-  //   });
 });
 
 router.post("/newTask/:project_id", async (req, res, next) => {
@@ -135,12 +137,6 @@ router.post("/newTask/:project_id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  //   model
-  //     .createTask(req.params.project_id, req.body)
-  //     .then((res) => {
-  //       res.json(res);
-  //     })
-  //     .catch(next);
 });
 
 router.use((err, req, res, next) => {
