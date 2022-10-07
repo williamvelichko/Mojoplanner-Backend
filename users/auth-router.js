@@ -29,15 +29,18 @@ router.post(
 );
 
 router.post("/login", validateUser, emailExists, async (req, res, next) => {
-  const password = req.body.password;
+  const { email, password } = req.body;
   console.log(password, req.user);
-  if (bcrypt.compareSync(password, req.user.password) === true) {
-    console.log(req.user);
-    // req.session.user = req.user;
-    res.json(`welcome back ${req.user.email}!`);
-  } else {
-    //next({ status: 401, message: "invalid credentials" });
-    res.status(401).json("invalid credentials");
+  try {
+    if (bcrypt.compareSync(password, req.user.password) === true) {
+      // req.session.user = req.user;
+      res.json(`welcome back ${req.user.email}!`);
+    } else {
+      //next({ status: 401, message: "invalid credentials" });
+      res.status(401).json("invalid credentials");
+    }
+  } catch (err) {
+    next(err);
   }
 });
 
