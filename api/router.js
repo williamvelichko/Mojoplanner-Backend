@@ -3,9 +3,9 @@ const model = require("./model");
 
 const router = express.Router();
 
-router.get("/projects", (req, res, next) => {
+router.get("/user/:user_id", (req, res, next) => {
   model
-    .projectByUser()
+    .projectByUser(req.params.user_id)
     .then((pr) => {
       res.json(pr);
     })

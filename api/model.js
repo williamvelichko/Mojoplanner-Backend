@@ -25,6 +25,7 @@ async function organizedProject() {
       "p.project_name",
       "p.project_leader",
       "p.project_id",
+      "p.user_id",
       "t.task_name",
       "t.task_information",
       "t.task_id"
@@ -37,7 +38,9 @@ async function organizedProject() {
   const prData = pr.map((dt) => {
     let project_name = dt.project_name;
     let project_leader = dt.project_leader;
+    let user_id = dt.user_id;
     let project_id = dt.project_id;
+
     let project_tasks = [];
     let prTasks = tasks.map((ts) => {
       let task_name = ts.task_name;
@@ -50,6 +53,7 @@ async function organizedProject() {
     const push = arr.push({
       project_leader,
       project_name,
+      user_id,
       project_id,
       project_tasks,
     });
@@ -117,11 +121,10 @@ async function deleteTask(task_id) {
   return result;
 }
 
-async function projectByUser() {
-  let data = db("projects as p")
-    .leftJoin("users as u", "u.user_id", "p.project_id")
-    .select("p.project_name", "p.project_leader", "u.user_id", "u.email");
-  console.log(data);
+async function projectByUser(user_id) {
+  let data = await organizedProject();
+  const result = data.filter((dt) => dt.user_id == user_id);
+  return result;
 }
 
 module.exports = {
