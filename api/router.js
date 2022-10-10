@@ -100,10 +100,10 @@ router.put("/task/:task_id", async (req, res, next) => {
   }
 });
 
-router.post("/newProject", async (req, res, next) => {
+router.post("/newProject/:user_id", async (req, res, next) => {
   try {
     console.log(req.body);
-    const result = await model.createProject(req.body);
+    const result = await model.createProject(req.body, req.params.user_id);
     res.json(result);
   } catch (err) {
     next(err);

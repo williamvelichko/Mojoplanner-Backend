@@ -88,8 +88,12 @@ async function updateTask(task_id, { task_name, task_information }) {
 async function getTaskById(task_id) {
   return db("tasks").where({ task_id: task_id });
 }
-async function createProject(body) {
-  const result = await db("projects").insert(body);
+async function createProject(body, user_id) {
+  const result = await db("projects").insert({
+    project_name: body.project_name,
+    project_leader: body.project_leader,
+    user_id: user_id,
+  });
   const array = await db("projects");
   console.log(array[array.length - 1]);
   return array[array.length - 1];
