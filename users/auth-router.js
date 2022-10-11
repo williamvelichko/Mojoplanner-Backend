@@ -49,7 +49,7 @@ router.post("/login", validateUser, emailExists, async (req, res, next) => {
 
 function generateToken(user) {
   const payload = {
-    subject: user.id,
+    subject: user.user_id,
     email: user.email,
   };
   return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });

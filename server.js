@@ -17,9 +17,9 @@ server.use("/api/auth", authRouter);
 server.use("/api/users", userRouter);
 server.use("/api/projects", router);
 
-// server.get("/", (req, res) => {
-//   res.send("hello from index route");
-// });
+server.get("/", (req, res) => {
+  res.send("hello from index route");
+});
 
 // server.get("/protected", protectedApi, async (req, res) => {
 //   res.send(userinfo);
