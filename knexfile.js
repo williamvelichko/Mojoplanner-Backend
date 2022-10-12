@@ -1,10 +1,10 @@
 //const path = require("path");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 require("dotenv").config();
 const pg = require("pg");
-dotenv.config({ path: "../env" });
+// dotenv.config({ path: "../env" });
 
-if (process.env.PROD_DATABASE_URL) {
+if (process.env.DATABASE_URL) {
   pg.defaults.ssl = { rejectUnauthorized: false };
 }
 // if (process.env.DATABASE_URL) {
@@ -20,7 +20,7 @@ const sharedConfig = {
 module.exports = {
   development: {
     ...sharedConfig,
-    connection: process.env.DATABASE_URL,
+    connection: process.env.DEV_DATABASE_URL,
   },
 
   test: {
@@ -30,7 +30,7 @@ module.exports = {
 
   production: {
     ...sharedConfig,
-    connection: process.env.PROD_DATABASE_URL,
+    connection: process.env.DATABASE_URL,
 
     pool: {
       min: 2,
