@@ -7,6 +7,9 @@ const pg = require("pg");
 // if (process.env.DATABASE_URL) {
 //   pg.defaults.ssl = { rejectUnauthorized: false };
 // }
+if (process.env.DATABASE_URL) {
+  pg.defaults.ssl = { rejectUnauthorized: false };
+}
 
 const sharedConfig = {
   client: "pg",
@@ -18,10 +21,6 @@ module.exports = {
   development: {
     ...sharedConfig,
     connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10,
-    },
   },
 
   test: {
@@ -31,9 +30,11 @@ module.exports = {
 
   production: {
     ...sharedConfig,
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: true,
+    connection: process.env.DATABASE_URL,
+
+    pool: {
+      min: 2,
+      max: 10,
     },
   },
 };
