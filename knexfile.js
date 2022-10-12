@@ -1,15 +1,15 @@
 //const path = require("path");
-//var dotenv = require("dotenv");
+const dotenv = require("dotenv");
 require("dotenv").config();
 const pg = require("pg");
-//dotenv.config({ path: "../env" });
+dotenv.config({ path: "../env" });
 
 // if (process.env.DATABASE_URL) {
 //   pg.defaults.ssl = { rejectUnauthorized: false };
 // }
-if (process.env.DATABASE_URL) {
-  pg.defaults.ssl = { rejectUnauthorized: false };
-}
+// if (process.env.DATABASE_URL) {
+//   pg.defaults.ssl = { rejectUnauthorized: false };
+// }
 
 const sharedConfig = {
   client: "pg",
