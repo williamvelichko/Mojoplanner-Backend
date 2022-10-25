@@ -94,8 +94,7 @@ async function createProject(body, user_id) {
     project_leader: body.project_leader,
     user_id: user_id,
   });
-  const array = await db("projects");
-  console.log(array[array.length - 1]);
+  const array = await organizedProject();
   return array[array.length - 1];
 }
 
