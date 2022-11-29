@@ -7,6 +7,7 @@ exports.up = function (knex) {
     table.increments("user_id");
     table.string("email").notNullable().unique().index();
     table.string("password").notNullable();
+    table.boolean("verified").defaultTo(false);
   });
 };
 

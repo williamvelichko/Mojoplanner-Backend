@@ -1,4 +1,10 @@
 const Users = require("./users-model");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const sendEmail = require("./sendEmail");
+const crypto = require("crypto");
+
+const { BCRYPT_ROUNDS, JWT_SECRET } = require("./../config/index");
 
 function validateUser(req, res, next) {
   if (
@@ -46,8 +52,35 @@ async function emailExists(req, res, next) {
   }
 }
 
+async function userIsVerified(req, res, next) {
+  const user = await Users.findBy({ email: req.user.email }).first();
+  if (!user.verified) {
+    try {
+      console.log(user);
+      const token = await generateToken(user);
+      const url = `${process.env.BASE_URL}/api/auth/${user.user_id}/verify/${token}`;
+      console.log(url);
+      await sendEmail(user.email, "VERIFY EMAIL", url);
+      res
+        .send(201)
+        .send({ message: "An Email was sent to your account please verify" });
+    } catch (error) {
+      res.status(500).send({ message: "Internal server error" });
+    }
+  }
+}
+
+function generateToken(user) {
+  const payload = {
+    subject: user.user_id,
+    email: user.email,
+    token: crypto.randomBytes(32).toString("hex"),
+  };
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+}
 module.exports = {
   validateUser,
   emailIsUnique,
   emailExists,
+  userIsVerified,
 };
