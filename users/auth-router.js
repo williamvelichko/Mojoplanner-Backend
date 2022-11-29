@@ -46,7 +46,7 @@ router.get("/:user_id/verify/:token", async (req, res, next) => {
     if (!jwtDecode(req.params.token).user_id === req.params.user_id)
       return res.status(400).send({ message: "invalid link" });
 
-    await User.updateUser({ user_id: req.params.user_id, verified: true });
+    await User.updateUser(req.params.user_id, { verified: true });
 
     res.status(200).send({ message: "Email verified successfully" });
   } catch (error) {

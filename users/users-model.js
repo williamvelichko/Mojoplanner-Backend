@@ -8,11 +8,11 @@ function findBy(filter) {
   return db("users").where(filter);
 }
 
-async function updateUser(user_id, verified) {
+async function updateUser(user_id, { verified }) {
   console.log(user_id, verified);
   const result = await db("users")
     .where({ user_id: user_id })
-    .update({ verified: verified });
+    .update({ verified });
   return result;
 }
 
