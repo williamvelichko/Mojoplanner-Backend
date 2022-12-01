@@ -28,6 +28,7 @@ router.post(
 
       let result = await User.add(user);
       const token = await generateToken(result);
+      console.log(process.env.BASE_URL);
       const url = `${process.env.BASE_URL}api/auth/${result.user_id}/verify/${token}`;
       await sendEmail(result.email, "VERIFY EMAIL", url);
       res.status(201).json("An Email was sent to your account please verify");
