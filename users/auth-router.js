@@ -62,14 +62,16 @@ router.post(
   userIsVerified,
   async (req, res, next) => {
     const { email, password } = req.body;
-    console.log(password, req.user);
+    console.log(req.user);
     try {
       if (bcrypt.compareSync(password, req.user.password) === true) {
         // req.session.user = req.user;
         const token = generateToken(req.user);
-        res
-          .status(200)
-          .json({ message: `welcome back ${req.user.email}!`, token });
+        res.status(200).json({
+          message: `welcome back ${req.user.email}!`,
+          verfified: req.user.verified,
+          token,
+        });
       } else {
         //next({ status: 401, message: "invalid credentials" });
         res.status(401).json("invalid credentials");

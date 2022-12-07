@@ -61,9 +61,10 @@ async function userIsVerified(req, res, next) {
       const url = `${process.env.BASE_URL}api/auth/${user.user_id}/verify/${token}`;
       console.log(url);
       await sendEmail(user.email, "VERIFY EMAIL", url);
-      res
-        .status(201)
-        .send({ message: "An Email was sent to your account please verify" });
+      res.status(201).send({
+        message: "An Email was sent to your account please verify",
+        verified: user.verified,
+      });
     } catch (error) {
       res.status(500).send({ message: "Internal server error" });
     }
