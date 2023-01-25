@@ -28,7 +28,8 @@ async function organizedProject() {
       "p.user_id",
       "t.task_name",
       "t.task_information",
-      "t.task_id"
+      "t.task_id",
+      "t.task_finished"
     );
 
   let pr = await getProjects();
@@ -46,8 +47,14 @@ async function organizedProject() {
       let task_name = ts.task_name;
       let task_information = ts.task_information;
       let task_id = ts.task_id;
+      let task_finished = ts.task_finished;
       if (ts.project_id === dt.project_id) {
-        project_tasks.push({ task_name, task_information, task_id });
+        project_tasks.push({
+          task_name,
+          task_information,
+          task_id,
+          task_finished,
+        });
       }
     });
     const push = arr.push({
@@ -130,6 +137,21 @@ async function projectByUser(user_id) {
   return result;
 }
 
+async function taskComplete(task_id, task_finished) {
+  let res = await db("tasks")
+    .where({ task_id: task_id })
+    .update({ task_finished: task_finished });
+  let result = await getTaskById(task_id);
+  return result;
+}
+async function taskCompleteRedo(task_id, task_finished) {
+  let res = await db("tasks")
+    .where({ task_id: task_id })
+    .update({ task_finished: task_finished });
+  let result = await getTaskById(task_id);
+  return result;
+}
+
 module.exports = {
   getProjects,
   getCompbined,
@@ -144,4 +166,6 @@ module.exports = {
   createTask,
   deleteTask,
   projectByUser,
+  taskComplete,
+  taskCompleteRedo,
 };
