@@ -21,6 +21,8 @@ exports.up = function (knex) {
       table.increments("task_id");
       table.string("task_name");
       table.string("task_information");
+      table.boolean("task_finished").defaultTo(false);
+
       table
         .integer("project_id")
         .unsigned()

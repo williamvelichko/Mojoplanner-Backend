@@ -139,6 +139,23 @@ router.post("/newTask/:project_id", async (req, res, next) => {
   }
 });
 
+router.put("/taskComplete/:task_id", async (req, res, next) => {
+  try {
+    const result = await model.taskComplete(req.params.task_id, true);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/taskCompleteRedo/:task_id", async (req, res, next) => {
+  try {
+    const result = await model.taskComplete(req.params.task_id, false);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
 router.use((err, req, res, next) => {
   // eslint-disable-line
   res.status(err.status || 500).json({
